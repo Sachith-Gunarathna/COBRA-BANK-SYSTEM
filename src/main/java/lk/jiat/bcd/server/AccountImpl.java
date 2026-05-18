@@ -22,11 +22,22 @@ public class AccountImpl extends AccountPOA {
 
     @Override
     public void deposit(String accNo, double amount) {
+        double currentBalance = db.getOrDefault(accNo,0.0);
+        db.put(accNo,currentBalance+amount);
 
+        System.out.println("Server Log: LKR "+amount+" deposited to account "+accNo);
     }
 
     @Override
     public void withdraw(String accNo, double amount) throws InsufficientBalance {
+        double currentBalance = db.getOrDefault(accNo,0.0);
 
+        if(currentBalance < amount){
+            System.out.println("Server Log: Failed to withdraw requested amount.");
+            throw new InsufficientBalance("Transaction Denied: Insufficient Account Balance...!");
+        }
+
+        db.put(accNo,currentBalance - amount);
+        System.out.println("Server Log: LKR "+amount+" withdrawn from account "+accNo);
     }
 }
