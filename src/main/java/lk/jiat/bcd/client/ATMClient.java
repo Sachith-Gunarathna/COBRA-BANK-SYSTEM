@@ -38,8 +38,8 @@ public class ATMClient {
                     case 2:
                         System.out.println("Enter amount to deposit: ");
                         double amount = sc.nextDouble();
-                        account.withdraw(accountID,amount);
-                        System.out.println("Withdraw Successful");
+                        account.deposit(accountID,amount);
+                        System.out.println("Deposit Successful");
                         System.out.println("Current Balance: "+account.getBalance(accountID));
                         break;
                     case 3:
